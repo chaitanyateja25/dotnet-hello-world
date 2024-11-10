@@ -2,10 +2,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:2.1 AS build
 
 WORKDIR /app
-COPY ./*.csproj ./
+COPY hello-world-api/hello-world-api.csproj .
 RUN dotnet restore
 
-COPY hello-world-api .
+COPY hello-world-api/hello-world-api.csproj .
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:2.1
