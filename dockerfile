@@ -1,20 +1,16 @@
-# Use the official .NET image as a base
-FROM FROM mcr.microsoft.com/dotnet/sdk:2.1 AS build
+# Use the .NET Core 2.0 SDK for compatibility
+FROM mcr.microsoft.com/dotnet/sdk:2.1 AS build
+
 WORKDIR /app
-EXPOSE 80
+COPY ./*.csproj ./
+RUN dotnet restore
 
-# Copy and restore the .NET application
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
-WORKDIR /src
-COPY hello-world-api .
-RUN dotnet restore "hello-world-api.csproj"
-
-# Build and publish the app
 COPY . .
-RUN dotnet publish "hello-world-api.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:2.1
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build /app/out .
+
+EXPOSE 80
 ENTRYPOINT ["dotnet", "dotnet-hello-world.dll"]
