@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build-env
 WORKDIR /app
 
-COPY dotnet-hello-world .
+COPY hello-world-api .
 RUN dotnet restore
 RUN dotnet build -c Release -o /app/build
 
