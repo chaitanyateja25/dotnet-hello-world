@@ -1,10 +1,10 @@
 # Use the official .NET image as a base
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+FROM FROM mcr.microsoft.com/dotnet/sdk:2.1 AS build
 WORKDIR /app
 EXPOSE 80
 
 # Copy and restore the .NET application
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY hello-world-api .
 RUN dotnet restore "hello-world-api.csproj"
