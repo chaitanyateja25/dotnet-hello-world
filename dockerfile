@@ -7,11 +7,11 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY hello-world-api .
-RUN dotnet restore "dotnet-hello-world.csproj"
+RUN dotnet restore "hello-world-api.csproj"
 
 # Build and publish the app
 COPY . .
-RUN dotnet publish "dotnet-hello-world.csproj" -c Release -o /app/publish
+RUN dotnet publish "hello-world-api.csproj" -c Release -o /app/publish
 
 # Build runtime image
 FROM base AS final
